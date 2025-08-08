@@ -13,8 +13,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 # Set variables necessary for download and verification of bitcoind
 ARG TARGETARCH
 ARG ARCH
-ARG VERSION=29.0
-ARG BITCOIN_CORE_SIGNATURE=71A3B16735405025D447E8F274810B012346C9A6
+ARG VERSION=28.1.knots20250305
+ARG BITCOIN_CORE_SIGNATURE=1A3E761F19D2CC7785C5502EA291A2C45D0C504A
 
 # Don't use base image's bitcoin package for a few reasons:
 # 1. Would need to use ppa/latest repo for the latest release.
@@ -27,9 +27,9 @@ RUN case ${TARGETARCH:-amd64} in \
     *) echo "Dockerfile does not support this platform"; exit 1 ;; \
     esac \
     && gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys ${BITCOIN_CORE_SIGNATURE} \
-    && wget -q --show-progress --progress=dot:giga https://bitcoincore.org/bin/bitcoin-core-${VERSION}/SHA256SUMS.asc \
-            https://bitcoincore.org/bin/bitcoin-core-${VERSION}/SHA256SUMS \
-            https://bitcoincore.org/bin/bitcoin-core-${VERSION}/bitcoin-${VERSION}-${ARCH}-linux-gnu.tar.gz \
+    && wget -q --show-progress --progress=dot:giga https://bitcoinknots.org/files/28.x/${VERSION}/SHA256SUMS.asc \
+            https://bitcoinknots.org/files/28.x/${VERSION}/SHA256SUMS \
+            https://bitcoinknots.org/files/28.x/${VERSION}/bitcoin-${VERSION}-${ARCH}-linux-gnu.tar.gz \
     && gpg --verify --status-fd 1 --verify SHA256SUMS.asc SHA256SUMS 2>/dev/null | grep "^\[GNUPG:\] VALIDSIG.*${BITCOIN_CORE_SIGNATURE}\$" \
     && sha256sum --ignore-missing --check SHA256SUMS \
     && tar -xzvf bitcoin-${VERSION}-${ARCH}-linux-gnu.tar.gz -C /opt \
