@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 # Set variables necessary for download and verification of bitcoind
 ARG TARGETARCH
 ARG ARCH
-ARG VERSION=29.1.knots20250903
+ARG VERSION=29.2.knots20251110
 ARG BITCOIN_CORE_SIGNATURE=1A3E761F19D2CC7785C5502EA291A2C45D0C504A
 
 # Don't use base image's bitcoin package for a few reasons:
